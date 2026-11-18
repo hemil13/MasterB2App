@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     Context context;
@@ -17,12 +19,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     String[] categoryNameArray;
     int[] categoryImageArray;
 
+    ArrayList<CategoryList> arrayList;
+
     // constructor
-    public CategoryAdapter(Context context, int[] categoryIdArray, String[] categoryNameArray, int[] categoryImageArray) {
+//    public CategoryAdapter(Context context, int[] categoryIdArray, String[] categoryNameArray, int[] categoryImageArray) {
+//        this.context = context;
+//        this.categoryIdArray = categoryIdArray;
+//        this.categoryNameArray = categoryNameArray;
+//        this.categoryImageArray = categoryImageArray;
+//    }
+
+    public CategoryAdapter(Context context, ArrayList<CategoryList> arrayList) {
         this.context = context;
-        this.categoryIdArray = categoryIdArray;
-        this.categoryNameArray = categoryNameArray;
-        this.categoryImageArray = categoryImageArray;
+        this.arrayList = arrayList;
     }
 
     @NonNull
@@ -45,13 +54,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        holder.image.setImageResource(categoryImageArray[position]);
-        holder.name.setText(categoryNameArray[position]);
+//        holder.image.setImageResource(categoryImageArray[position]);
+//        holder.name.setText(categoryNameArray[position]);
+
+        holder.image.setImageResource(arrayList.get(position).getImage());
+        holder.name.setText(arrayList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return categoryIdArray.length;
+        return arrayList.size();
     }
 
 
