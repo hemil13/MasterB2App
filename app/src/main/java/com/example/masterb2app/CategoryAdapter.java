@@ -1,6 +1,10 @@
 package com.example.masterb2app;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +22,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     int[] categoryIdArray;
     String[] categoryNameArray;
     int[] categoryImageArray;
+    SharedPreferences sp;
 
     ArrayList<CategoryList> arrayList;
 
@@ -32,6 +37,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public CategoryAdapter(Context context, ArrayList<CategoryList> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+        sp = context.getSharedPreferences(ConstantSp.PREF, MODE_PRIVATE);
     }
 
     @NonNull
@@ -59,6 +65,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.image.setImageResource(arrayList.get(position).getImage());
         holder.name.setText(arrayList.get(position).getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sp.edit().putInt(ConstantSp.CATEGORY_ID, arrayList.get(position).getId()).commit();
+                Intent intent = new Intent(context, SubcategoryActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
