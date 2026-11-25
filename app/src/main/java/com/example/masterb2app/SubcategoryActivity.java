@@ -57,7 +57,7 @@ public class SubcategoryActivity extends AppCompatActivity {
 
 
         for(int i=0; i<subcategoryIdArray.length; i++){
-            String checkCategory = "SELECT * FROM category WHERE name = '"+subcategoryNameArray[i]+"' AND categoryId = '"+categoryIdArray[i]+"'";
+            String checkCategory = "SELECT * FROM category WHERE name = '"+subcategoryNameArray[i]+"' AND categoryId = '"+Integer.parseInt(sp.getString(ConstantSp.CATEGORY_ID, ""))+"'";
             Cursor cursor = db.rawQuery(checkCategory, null);
             if(cursor.getCount() == 0){
                 String insertCategory = "INSERT INTO subcategory VALUES (NULL, '"+categoryIdArray[i]+"', '"+subcategoryNameArray[i]+"', '"+subcategoryImageArray[i]+"')";
